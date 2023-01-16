@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route, Router } from "react-router-dom";
 
-function App() {
+import Navbar from "./components/layouts/Navbar";
+import Footer from "./components/layouts/Footer";
+import Home from "./components/pages/Home";
+import About from "./components/pages/About";
+import NotFound from "./components/pages/NotFound";
+import GithubContext, { GithubProvider } from "./context/GithubContext";
+import { SearchProvider } from "./context/SearchContext";
+
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GithubProvider>
+      <SearchProvider>
+        <div className="flex flex-col justify-between h-screen">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/*" element={<NotFound />} />
+          </Routes>
+          <Footer />
+        </div>
+      </SearchProvider>
+    </GithubProvider>
   );
 }
 
